@@ -1,7 +1,8 @@
+import 'dart:ffi';
 import 'dart:io';
 
 class Position {
-  final int? id;
+  final String? id;
   final String notes;
   final double longitude, latitude;
   Position(
@@ -11,7 +12,7 @@ class Position {
       this.id});
   Position.fromMap(Map<String, dynamic> json)
       : id = json['id'],
-        latitude = json['latitude'],
-        longitude = json['longitude'],
+        latitude = double.parse(json['latitude']),
+        longitude = double.parse(json['longitude']),
         notes = json['description'];
 }

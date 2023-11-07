@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:app_settings/app_settings.dart';
+import 'package:find_me/pages/listPos.dart';
 import 'package:find_me/pages/sendmsg.dart';
+import 'package:find_me/services/data.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:telephony/telephony.dart';
@@ -20,11 +24,12 @@ messageHandler(SmsMessage message) async {
 }
 
 class _MainAppState extends State<MainApp> {
+  final List<Position> positions = [];
+  var data;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("--------------------hello from initplatformstate");
   }
 
   @override
@@ -53,9 +58,8 @@ class _MainAppState extends State<MainApp> {
           ),
           title: const Text('Locate'),
         ),
-        body: TabBarView(children: [
-          SendMessagePage(),
-        ]),
+        body: TabBarView(
+            children: [SendMessagePage(), ListBestPosition(), Text('data')]),
       ),
     ));
   }
