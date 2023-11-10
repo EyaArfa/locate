@@ -42,7 +42,7 @@ class _MapState extends State<MapViewWidget> {
             initialCameraPosition: _initialCameraPosition,
             onMapCreated: _onMapCreated,
             accessToken:
-            #TODO
+            //TODO
                 "edit this with your mapbox private key ",
             dragEnabled: true,
             minMaxZoomPreference: const MinMaxZoomPreference(25, 25),
