@@ -15,4 +15,13 @@ class Position {
         latitude = double.parse(json['latitude']),
         longitude = double.parse(json['longitude']),
         notes = json['description'];
+  Map<String, dynamic> toJSON() {
+    Map<String, dynamic> map = {};
+    map.addAll({
+      'description': notes,
+      'longitude': longitude,
+      'latitude': latitude,
+    });
+    return map;
+  }
 }

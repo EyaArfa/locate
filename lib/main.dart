@@ -1,14 +1,14 @@
-import 'dart:convert';
-
 import 'package:app_settings/app_settings.dart';
 import 'package:find_me/pages/listPos.dart';
+import 'package:find_me/pages/map.dart';
 import 'package:find_me/pages/sendmsg.dart';
-import 'package:find_me/services/data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:telephony/telephony.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(MainApp());
 }
 
@@ -25,10 +25,12 @@ messageHandler(SmsMessage message) async {
 
 class _MainAppState extends State<MainApp> {
   final List<Position> positions = [];
+  final TextEditingController textEditingController = TextEditingController();
   var data;
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
   }
 
@@ -59,7 +61,8 @@ class _MainAppState extends State<MainApp> {
           title: const Text('Locate'),
         ),
         body: TabBarView(
-            children: [SendMessagePage(), ListBestPosition(), Text('data')]),
+            physics: NeverScrollableScrollPhysics(),
+            children: [SendMessagePage(), ListBestPosition(), MapViewWidget()]),
       ),
     ));
   }

@@ -56,8 +56,7 @@ class SendMessagePage extends StatelessWidget {
 
 void executeFunction(SmsMessage sms) async {
   // Perform the desired action when a new SMS message arrives.
-  print(
-      'Received SMS:${sms.body!.toLowerCase() == 'find_me'}__${sms.address}__${sms.serviceCenterAddress}');
+
   if (sms.body!.toLowerCase().contains('find_me')) {
     Telephony telephony = Telephony.instance;
     var result = await _determinePosition();
