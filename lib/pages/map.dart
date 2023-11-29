@@ -70,6 +70,7 @@ class _MapState extends State<MapViewWidget> {
             onMapCreated: _onMapCreated,
             accessToken:
                dotenv.env['ACCESS_TOKEN'],
+            
             dragEnabled: true,
             zoomGesturesEnabled: true,
             minMaxZoomPreference: const MinMaxZoomPreference(5,25),
