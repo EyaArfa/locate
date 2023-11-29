@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:find_me/functions/SMSListener.dart';
 import 'package:find_me/pages/listPos.dart';
 import 'package:find_me/pages/map.dart';
 import 'package:find_me/pages/sendmsg.dart';
@@ -30,41 +31,57 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
   }
 
   @override
   void dispose() {
-    final Telephony telephony = Telephony.instance;
-    // TODO: implement dispose
-    telephony.listenIncomingSms(onNewMessage: (msg) => executeFunction(msg));
+    listenForIncomingSMS();
     super.dispose();
   }
-
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     listenForIncomingSMS();
     _locationpermission();
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
         home: DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.sms)),
-              Tab(icon: Icon(Icons.list_alt)),
-              Tab(icon: Icon(Icons.map_sharp)),
-            ],
-          ),
-          title: const Text('Locate'),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: Colors.black12,
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.sms),
+              icon: Icon(Icons.sms),
+              label: 'Sms',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.list_alt),
+              label: 'List',
+            ),
+            NavigationDestination(
+              icon:  Icon(Icons.map_sharp),
+
+              label: 'Map',
+            ),
+          ],
         ),
-        body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: [SendMessagePage(), ListBestPosition(), MapViewWidget()]),
-      ),
-    ));
+
+
+        body: <Widget>[
+          SendMessagePage(),
+          ListBestPosition(),
+          MapViewWidget(),
+        ][currentPageIndex]))
+    );
   }
 
   void listenForIncomingSMS() async {
