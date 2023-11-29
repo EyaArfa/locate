@@ -20,11 +20,7 @@ class _MapState extends State<MapViewWidget> {
   late GlobalKey<FormState> _key ;
   late TextEditingController textEditingController;
     double  long=0,lat=0;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  var initializationSettingsIOS = IOSInitializationSettings();
-  var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
 
   _onMapCreated(MapboxMapController controller) async {
     this.controller = controller;
