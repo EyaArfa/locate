@@ -1,9 +1,10 @@
 import 'package:find_me/models/position.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Stream<List<Position>> getData() async* {
-  var url = 'http://192.168.1.14:8080/serviceApp/create-php-service.php';
+  var url = '${dotenv.env['URL']}create-php-service.php';
   try {
     http.Response response = await http.get(Uri.parse(url));
     dynamic data;
@@ -23,7 +24,7 @@ Stream<List<Position>> getData() async* {
 }
 
 Future insert(Position pos) async {
-  var url = "http://192.168.1.14:8080/serviceApp/insert_ami.php";
+  var url = "${dotenv.env['URL']}insert_ami.php";
   final response = await http.post(Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',

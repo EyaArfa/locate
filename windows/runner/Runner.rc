@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "find_me" "\0"
+            VALUE "FileDescription", "locate" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "find_me" "\0"
+            VALUE "InternalName", "locate" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "find_me.exe" "\0"
-            VALUE "ProductName", "find_me" "\0"
+            VALUE "OriginalFilename", "locate.exe" "\0"
+            VALUE "ProductName", "locate" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
