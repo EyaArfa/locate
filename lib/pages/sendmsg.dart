@@ -1,6 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:find_me/functions/getPosition.dart';
+import 'package:find_me/functions/notify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:telephony/telephony.dart';
 
@@ -44,15 +46,18 @@ class SendMessagePage extends StatelessWidget {
                   TextButton(
                       onPressed: () async {
                         print(txtMsgController.text);
+                      if(_key.currentState!.validate()) {
 
                         bool? permissionsGranted =
                         await telephony.requestPhoneAndSmsPermissions;
-
                         if (permissionsGranted == true &&
                             _key.currentState!.validate()) {
                           await telephony.sendSms(
                               to: txtMsgController.text, message: 'find_me');
                         }
+
+                      }
+
                       },
                       child: Text('Send SMS')),
 
@@ -76,7 +81,9 @@ void executeFunction(SmsMessage sms) async {
         to: sms.address!,
         message:
             'you can click here to get the result in maps https://www.google.com/maps/search/?api=1&query=${result.latitude},${result.longitude}');
+  await notify();
   }
+
 }
 
 

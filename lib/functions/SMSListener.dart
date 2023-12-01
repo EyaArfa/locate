@@ -1,3 +1,5 @@
+import 'package:find_me/functions/notify.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:telephony/telephony.dart';
 import './getPosition.dart';
 
@@ -11,5 +13,7 @@ void executeBackgroundFunction(SmsMessage sms) async {
         to: sms.address!,
         message:
         'you can click here to get the result in maps https://www.google.com/maps/search/?api=1&query=${result.longitude},${result.latitude}');
+    await notify();
+
   }
 }

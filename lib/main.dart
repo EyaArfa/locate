@@ -5,6 +5,7 @@ import 'package:find_me/pages/map.dart';
 import 'package:find_me/pages/sendmsg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:telephony/telephony.dart';
 
@@ -36,14 +37,21 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void dispose() {
-    listenForIncomingSMS();
     super.dispose();
+    listenForIncomingSMS();
   }
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     listenForIncomingSMS();
     _locationpermission();
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+
+
+
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
         home: DefaultTabController(
@@ -88,6 +96,7 @@ class _MainAppState extends State<MainApp> {
     final Telephony telephony = Telephony.instance;
 
     telephony.listenIncomingSms(
+      listenInBackground: true,
         onNewMessage: (SmsMessage sms) {
           // Handle incoming SMS message here and execute a function.
           executeFunction(sms);
